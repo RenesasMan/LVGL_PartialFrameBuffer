@@ -4,10 +4,12 @@
 #include "LVGL_thread_entry.h"
 #include "lvgl/src/drivers/display/renesas_glcdc/lv_renesas_glcdc.h"
 #include "lcd_drivers.h"
+#include "widgets_modified/lv_demo_widgets_modified.h"
+#include "Partial_Frame_Buffer_Benchmark/Partial_Framebuffer_Benchmark.h"
 
 #define DIRECT_MODE 1u
 #define PARTIAL_MODE 2u
-#define RENDER_MODE DIRECT_MODE
+#define RENDER_MODE PARTIAL_MODE
 //#define RENDER_MODE PARTIAL_MODE
 #define PARTIAL_FRAMES_PER_FULL 8 //set the number of partial frames per a full frame
 
@@ -180,6 +182,15 @@ void LVGL_thread_entry(void *pvParameters)
 
 #if (1 == LV_USE_DEMO_WIDGETS_MODIFIED && 0 == LV_USE_DEMO_BENCHMARK)
     lv_demo_widgets_modified();
+#endif
+
+#if (1 == LV_USE_HELLO_WORLD)
+//    lv_example_get_started_1();
+    lv_example_get_started_2();
+#endif
+
+#if (1 == LV_USE_PARTIAL_FRAMEBUFFER_BENCHMARK)
+    lv_demo_partial_framebuffer_benchmark();
 #endif
 
     err = R_GPT_Open(&g_timer0_ctrl, &g_timer0_cfg);
