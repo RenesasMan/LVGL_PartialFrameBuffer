@@ -1,11 +1,13 @@
 #include <LVGL_thread.h>
 //#include "board_init.h"
+#include "common_utils.h"
 #include "lvgl/demos/lv_demos.h"
 #include "LVGL_thread_entry.h"
 #include "lvgl/src/drivers/display/renesas_glcdc/lv_renesas_glcdc.h"
 #include "lcd_drivers.h"
 #include "widgets_modified/lv_demo_widgets_modified.h"
 #include "Partial_Frame_Buffer_Benchmark/Partial_Framebuffer_Benchmark.h"
+#include "time_counter/time_counter.h"
 
 #define DIRECT_MODE 1u
 #define PARTIAL_MODE 2u
@@ -21,11 +23,16 @@ static uint32_t non_idle_time_sum;
 static uint32_t task_switch_timestamp;
 static bool idle_task_running;
 
-#if (1 == LV_USE_DEMO_WIDGETS_MODIFIED && 0 == LV_USE_DEMO_BENCHMARK)
+#if ( (1 == LV_USE_DEMO_WIDGETS_MODIFIED || 1 == LV_USE_PARTIAL_FRAMEBUFFER_BENCHMARK) && 0 == LV_USE_DEMO_BENCHMARK)
 extern lv_obj_t * tv;
 extern lv_obj_t * t1;
 extern lv_obj_t * t2;
 extern lv_obj_t * t3;
+
+extern lv_anim_t bars_anim_obj;
+extern lv_anim_t vertical_ball0_anim_obj;
+extern lv_anim_t horizontal_ball_anim_obj[10];
+
 uint8_t current_tab = 0;
 #endif
 static bool is_sw1_pressed = false;
@@ -42,6 +49,7 @@ static uint32_t partial_buffer_size = 0;
 
 lv_display_t * disp;
 
+//uint32_t lv_os_get_idle_percent(void);
 
 static void flush_direct(lv_display_t * display, const lv_area_t * area, uint8_t * px_map);
 static void flush_partial(lv_display_t * display, const lv_area_t * area, uint8_t * px_map);
@@ -105,6 +113,16 @@ void LVGL_thread_entry(void *pvParameters)
     FSP_PARAMETER_NOT_USED (pvParameters);
     fsp_err_t err;
 
+    fsp_pack_version_t version    = {RESET_VALUE};
+
+    /* version get API for FLEX pack information */
+    R_FSP_VersionGet(&version);
+
+//    APP_PRINT(BANNER_INFO, EP_VERSION, version.version_id_b.major, version.version_id_b.minor, version.version_id_b.patch);
+//    APP_PRINT(EP_INFO);
+
+    TimeCounter_Init();
+
     err = ext_irq_init();
     if (FSP_SUCCESS != err)
     {
@@ -147,7 +165,7 @@ void LVGL_thread_entry(void *pvParameters)
 
     disp = lv_display_create(DISPLAY_HSIZE_INPUT0, DISPLAY_VSIZE_INPUT0);
 
-    // Direct render
+    // Partial render
     lv_display_set_flush_cb(disp, flush_partial);
     lv_display_set_flush_wait_cb(disp, flush_wait_partial);
 
@@ -205,7 +223,21 @@ void LVGL_thread_entry(void *pvParameters)
         __BKPT(0);
     }
 
+    start_tick();
+    vTaskDelay (1);
+    stop_tick();
+
+    start_tick();
+    vTaskDelay (10);
+    stop_tick();
+
+    start_tick();
+    vTaskDelay (1000);
+    stop_tick();
+
     lv_timer_handler();
+
+    uint8_t old_tab;
 
     /* TODO: add your own code here */
     while (1)
@@ -213,37 +245,55 @@ void LVGL_thread_entry(void *pvParameters)
         lv_timer_handler();
         vTaskDelay (1);
 
-#if (1 == LV_USE_DEMO_WIDGETS_MODIFIED && 0 == LV_USE_DEMO_BENCHMARK)
+#if ( (1 == LV_USE_DEMO_WIDGETS_MODIFIED || 1 == LV_USE_PARTIAL_FRAMEBUFFER_BENCHMARK) && 0 == LV_USE_DEMO_BENCHMARK)
         if( true == is_sw1_pressed )
         {
             is_sw1_pressed = false;
             is_sw2_pressed = false; // just in case both switches were pressed, ignore sw2 by resetting
+            old_tab = current_tab;
 
-            if(0U < current_tab)
+            if(0U == current_tab)
             {
-                current_tab--;
+                APP_PRINT("\r\nBar Graph Animation Start:\r\n");
+                lv_anim_start(&bars_anim_obj);
             }
-            else
+            else if( 1U == current_tab)
             {
-                current_tab = 0;
+                APP_PRINT("\r\nVertical Ball Animation Start:\r\n");
+                lv_anim_start(&vertical_ball0_anim_obj);
             }
-            lv_tabview_set_active(tv, current_tab, LV_ANIM_ON);
+            else if(2U == current_tab)
+            {
+                APP_PRINT("\r\nHorizontal Ball Array Animation Start:\r\n");
+                lv_anim_start(&horizontal_ball_anim_obj[0]);
+                lv_anim_start(&horizontal_ball_anim_obj[1]);
+                lv_anim_start(&horizontal_ball_anim_obj[2]);
+                lv_anim_start(&horizontal_ball_anim_obj[3]);
+                lv_anim_start(&horizontal_ball_anim_obj[4]);
+                lv_anim_start(&horizontal_ball_anim_obj[5]);
+                lv_anim_start(&horizontal_ball_anim_obj[6]);
+                lv_anim_start(&horizontal_ball_anim_obj[7]);
+                lv_anim_start(&horizontal_ball_anim_obj[8]);
+                lv_anim_start(&horizontal_ball_anim_obj[9]);
+            }
 
         }
-        else if (true == is_sw2_pressed )
+        if (true == is_sw2_pressed )
         {
             is_sw2_pressed = false;
 
-            if(3U > current_tab )
+            if(2U > current_tab )
             {
                 current_tab++;
             }
             else
             {
-                current_tab = 3U;
+                current_tab = 0U;
             }
+            APP_PRINT("\r\nTab Transition (%u to %u) Animation Start:\r\n", old_tab, current_tab);
             lv_tabview_set_active(tv, current_tab, LV_ANIM_ON);
         }
+
 #endif
 
     }
@@ -299,6 +349,9 @@ static void flush_wait_direct(lv_display_t * display)
 static void flush_partial(lv_display_t * display, const lv_area_t * area, uint8_t * px_map)
 {
     //FSP_PARAMETER_NOT_USED(area);
+    stop_tick();
+    uint32_t draw_area_size = (area->x2 - area->x1 )*(area->y2 - area->y1);
+    APP_PRINT("\r\nRegion %u\t x1=%u\tx2=%u\ty1=%u\ty2=%u\tsize=%u\r\n", (area->y1)/(DISPLAY_VSIZE_INPUT0/PARTIAL_FRAMES_PER_FULL), area->x1, area->x2, area->y1, area->y2, draw_area_size);
 
     /*Display the frame buffer pointed by px_map*/
     lcd_refresh_565rgb_partial(area,px_map);
@@ -325,6 +378,7 @@ static void flush_partial(lv_display_t * display, const lv_area_t * area, uint8_
         err = R_GLCDC_LayerChange(GLCDC_FRAME_LAYER_2, &g_layer_change);
     } while(GLCDC_ERR_INVALID_UPDATE_TIMING == err);
 #endif /*_RENESAS_RA_*/
+    start_tick();
 }
 
 static void flush_wait_partial(lv_display_t * display)

@@ -11,11 +11,21 @@
                 #else
 extern void LVGL_thread_entry(void *pvParameters);
 #endif
-#include "r_qspi.h"
-#include "r_spi_flash_api.h"
 #include "r_gpt.h"
 #include "r_timer_api.h"
+#include "r_qspi.h"
+#include "r_spi_flash_api.h"
 FSP_HEADER
+/** Timer on GPT Instance. */
+extern const timer_instance_t g_time_counter;
+
+/** Access the GPT instance using these structures when calling API functions directly (::p_api is not used). */
+extern gpt_instance_ctrl_t g_time_counter_ctrl;
+extern const timer_cfg_t g_time_counter_cfg;
+
+#ifndef time_counter_callback
+void time_counter_callback(timer_callback_args_t *p_args);
+#endif
 extern const spi_flash_instance_t g_qspi;
 extern qspi_instance_ctrl_t g_qspi_ctrl;
 extern const spi_flash_cfg_t g_qspi_cfg;

@@ -6,7 +6,7 @@
         #endif
 /* Number of interrupts allocated */
 #ifndef VECTOR_DATA_IRQ_COUNT
-#define VECTOR_DATA_IRQ_COUNT    (3)
+#define VECTOR_DATA_IRQ_COUNT    (4)
 #endif
 /* ISR prototypes */
 void gpt_counter_overflow_isr(void);
@@ -19,6 +19,8 @@ void r_icu_isr(void);
 #define ICU_IRQ10_IRQn          ((IRQn_Type) 1) /* ICU IRQ10 (External pin interrupt 10) */
 #define VECTOR_NUMBER_ICU_IRQ11 ((IRQn_Type) 2) /* ICU IRQ11 (External pin interrupt 11) */
 #define ICU_IRQ11_IRQn          ((IRQn_Type) 2) /* ICU IRQ11 (External pin interrupt 11) */
+#define VECTOR_NUMBER_GPT1_COUNTER_OVERFLOW ((IRQn_Type) 3) /* GPT1 COUNTER OVERFLOW (Overflow) */
+#define GPT1_COUNTER_OVERFLOW_IRQn          ((IRQn_Type) 3) /* GPT1 COUNTER OVERFLOW (Overflow) */
 #ifdef __cplusplus
         }
         #endif
