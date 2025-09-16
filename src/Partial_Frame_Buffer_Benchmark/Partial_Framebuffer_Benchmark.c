@@ -158,7 +158,7 @@ static void set_temp(void * bar, int32_t temp)
 
 static void anim_report_cb(void * var, int32_t v)
 {
-
+    APP_PRINT("\r\nAnimation Complete\r\n");
 }
 
 
@@ -184,6 +184,7 @@ static void bars_create(lv_obj_t * parent)
     lv_anim_set_var(&bars_anim_obj, bar);
     lv_anim_set_values(&bars_anim_obj, -20, 40);
     lv_anim_set_repeat_count(&bars_anim_obj, ANIMATION_COUNT);
+    lv_anim_set_completed_cb(&bars_anim_obj, anim_report_cb);
 //    lv_anim_start(&bars_anim_obj);
 
 
@@ -201,6 +202,7 @@ static void ball_animate(lv_obj_t * obj, lv_anim_t * anim)
     lv_anim_set_repeat_delay(anim, 500);
     lv_anim_set_repeat_count(anim, ANIMATION_COUNT);
     lv_anim_set_exec_cb(anim, anim_y_cb);
+    lv_anim_set_completed_cb(anim, anim_report_cb);
     lv_anim_set_values(anim, -100, 100);
 //    lv_anim_start(anim);
 }

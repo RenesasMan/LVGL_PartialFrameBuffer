@@ -473,17 +473,13 @@ void lcd_refresh_565rgb_partial(const lv_area_t * area, uint8_t *px)
 }
 void cb_pushbutton1(external_irq_callback_args_t *p_args)
 {
-
     is_sw1_pressed = true;
-
 }
 
 
 void cb_pushbutton2(external_irq_callback_args_t *p_args)
 {
-
     is_sw2_pressed = true;
-
 }
 
 fsp_err_t ext_irq_init(void)
@@ -494,28 +490,24 @@ fsp_err_t ext_irq_init(void)
       if(FSP_SUCCESS != err)
       {
           __BKPT();
-
       }
 
       err = R_ICU_ExternalIrqEnable(&g_external_irq0_ctrl);
       if(FSP_SUCCESS != err)
       {
           __BKPT();
-
       }
 
       err = R_ICU_ExternalIrqOpen(&g_external_irq1_ctrl, &g_external_irq1_cfg);
       if(FSP_SUCCESS != err)
       {
           __BKPT();
-
       }
 
       err = R_ICU_ExternalIrqEnable(&g_external_irq1_ctrl);
       if(FSP_SUCCESS != err)
       {
           __BKPT();
-
       }
 
     return err;
