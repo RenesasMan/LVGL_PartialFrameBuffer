@@ -134,10 +134,10 @@ FSP Configuration
       P115 80 GPIO LCD_IM0 Low - "Output mode (Initial Low)" CMOS - "BUS_ASYNCH0: A01; GPT4: GTIOC4A; SSI0: SSITXD0" - IO - - 
       P200 57 - - - - Disabled - - "ICU0: NMI" - None - - 
       P201 56 - - - - Disabled - - "SYSTEM0: MD" - None - - 
-      P202 46 - ARDUILD_MISO_MIKROBUS_MISO - - Disabled - - "AGT3: AGTOB3; BUS_ASYNCH0: BC1; CAN0: CRX0; CTSU0: TS19; ETHERC_MII0: ET0_ERXD2; GPT5: GTIOC5B; ICU0: IRQ03; SCI2: SCK2; SCI9: RXD9; SCI9: SCL9; SDHI0: SD0DAT6; SPI0: MISOA" - None - - 
-      P203 45 - ARDUILD_MOSI_MIKROBUS_MOSI - - Disabled - - "AGT3: AGTOA3; BUS_ASYNCH0: A19; CAN0: CTX0; CTSU0: TS18; ETHERC_MII0: ET0_COL; GPT5: GTIOC5A; ICU0: IRQ02; SCI2: CTSRTS2; SCI9: SDA9; SCI9: TXD9; SDHI0: SD0DAT5; SPI0: MOSIA" - None - - 
-      P204 44 - ARDUILD_CLK_MIKROBUS_CLK - - Disabled - - "AGT1: AGTIO1; BUS_ASYNCH0: A18; CAC0: CACREF; CTSU0: TS00; ETHERC_MII0: ET0_RX_DV; GPT_OPS0: GTIW; GPT4: GTIOC4B; SCI4: SCK4; SCI9: SCK9; SDHI0: SD0DAT4; SPI0: RSPCKA; SSI0: SSIBCK0; USB_FS0: USB_OVRCURB" - None - - 
-      P205 43 CGC0_CLKOUT ARDUILD_SS_MIKROBUS_SS Low None "Peripheral mode" CMOS None "AGT1: AGTO1; BUS_ASYNCH0: A16; CGC0: CLKOUT; CTSU0: TS01; ETHERC_MII0: ET0_WOL; ETHERC_RMII0: ET0_WOL; GPT_OPS0: GTIV; GPT4: GTIOC4A; ICU0: IRQ01; IIC1: SCL1; SCI4: SDA4; SCI4: TXD4; SCI9: CTSRTS9; SDHI0: SD0DAT3; SPI0: SSLA0; SSI0: SSILRCK0; USB_FS0: USB_OVRCURA" - IO - - 
+      P202 46 SPI0_MISOA ARDUILD_MISO_MIKROBUS_MISO Low None "Peripheral mode" CMOS None "AGT3: AGTOB3; BUS_ASYNCH0: BC1; CAN0: CRX0; CTSU0: TS19; ETHERC_MII0: ET0_ERXD2; GPT5: GTIOC5B; ICU0: IRQ03; SCI2: SCK2; SCI9: RXD9; SCI9: SCL9; SDHI0: SD0DAT6; SPI0: MISOA" - IO - - 
+      P203 45 SPI0_MOSIA ARDUILD_MOSI_MIKROBUS_MOSI Low None "Peripheral mode" CMOS None "AGT3: AGTOA3; BUS_ASYNCH0: A19; CAN0: CTX0; CTSU0: TS18; ETHERC_MII0: ET0_COL; GPT5: GTIOC5A; ICU0: IRQ02; SCI2: CTSRTS2; SCI9: SDA9; SCI9: TXD9; SDHI0: SD0DAT5; SPI0: MOSIA" - IO - - 
+      P204 44 SPI0_RSPCKA ARDUILD_CLK_MIKROBUS_CLK Low - "Peripheral mode" CMOS None "AGT1: AGTIO1; BUS_ASYNCH0: A18; CAC0: CACREF; CTSU0: TS00; ETHERC_MII0: ET0_RX_DV; GPT_OPS0: GTIW; GPT4: GTIOC4B; SCI4: SCK4; SCI9: SCK9; SDHI0: SD0DAT4; SPI0: RSPCKA; SSI0: SSIBCK0; USB_FS0: USB_OVRCURB" - IO - - 
+      P205 43 SPI0_SSLA0 ARDUILD_SS_MIKROBUS_SS High None "Peripheral mode" CMOS None "AGT1: AGTO1; BUS_ASYNCH0: A16; CGC0: CLKOUT; CTSU0: TS01; ETHERC_MII0: ET0_WOL; ETHERC_RMII0: ET0_WOL; GPT_OPS0: GTIV; GPT4: GTIOC4A; ICU0: IRQ01; IIC1: SCL1; SCI4: SDA4; SCI4: TXD4; SCI9: CTSRTS9; SDHI0: SD0DAT3; SPI0: SSLA0; SSI0: SSILRCK0; USB_FS0: USB_OVRCURA" - IO - - 
       P206 42 - - - - Disabled - - "BUS_ASYNCH0: WAIT; CTSU0: TS02; ETHERC_MII0: ET0_LINKSTA; ETHERC_RMII0: ET0_LINKSTA; GPT_OPS0: GTIU; ICU0: IRQ00; IIC1: SDA1; SCI4: RXD4; SCI4: SCL4; SCI9: CTS9; SDHI0: SD0DAT2; SPI0: SSLA1; SSI0: SSIDATA0; USB_FS0: USB_VBUSEN" - None - - 
       P207 41 - - - - Disabled - - "BUS_ASYNCH0: A17; CTSU0: TSCAP; QSPI0: QSSL; SCI4: SDA4; SCI4: TXD4; SPI0: SSLA2" - None - - 
       P208 54 - - - - Disabled - - "BUS_ASYNCH0: CS4; DEBUG_TRACE0: TDATA3; ETHERC_MII0: ET0_LINKSTA; ETHERC_RMII0: ET0_LINKSTA; GPT_OPS0: GTOVLO; QSPI0: QIO3; SDHI0: SD0DAT0" - None - - 
@@ -279,9 +279,9 @@ FSP Configuration
       P115 80 - LCD_IM0 Low - Disabled CMOS - "BUS_ASYNCH0: A01; GPT4: GTIOC4A; SSI0: SSITXD0" - IO - - 
       P200 57 - - - - Disabled - - "ICU0: NMI" - None - - 
       P201 56 - - - - Disabled - - "SYSTEM0: MD" - None - - 
-      P202 46 - ARDUILD_MISO_MIKROBUS_MISO - - Disabled - - "AGT3: AGTOB3; BUS_ASYNCH0: BC1; CAN0: CRX0; CTSU0: TS19; ETHERC_MII0: ET0_ERXD2; GPT5: GTIOC5B; ICU0: IRQ03; SCI2: SCK2; SCI9: RXD9; SCI9: SCL9; SDHI0: SD0DAT6; SPI0: MISOA" - None - - 
-      P203 45 - ARDUILD_MOSI_MIKROBUS_MOSI - - Disabled - - "AGT3: AGTOA3; BUS_ASYNCH0: A19; CAN0: CTX0; CTSU0: TS18; ETHERC_MII0: ET0_COL; GPT5: GTIOC5A; ICU0: IRQ02; SCI2: CTSRTS2; SCI9: SDA9; SCI9: TXD9; SDHI0: SD0DAT5; SPI0: MOSIA" - None - - 
-      P204 44 - ARDUILD_CLK_MIKROBUS_CLK - - Disabled - - "AGT1: AGTIO1; BUS_ASYNCH0: A18; CAC0: CACREF; CTSU0: TS00; ETHERC_MII0: ET0_RX_DV; GPT_OPS0: GTIW; GPT4: GTIOC4B; SCI4: SCK4; SCI9: SCK9; SDHI0: SD0DAT4; SPI0: RSPCKA; SSI0: SSIBCK0; USB_FS0: USB_OVRCURB" - None - - 
+      P202 46 - ARDUILD_MISO_MIKROBUS_MISO Low None Disabled CMOS None "AGT3: AGTOB3; BUS_ASYNCH0: BC1; CAN0: CRX0; CTSU0: TS19; ETHERC_MII0: ET0_ERXD2; GPT5: GTIOC5B; ICU0: IRQ03; SCI2: SCK2; SCI9: RXD9; SCI9: SCL9; SDHI0: SD0DAT6; SPI0: MISOA" - IO - - 
+      P203 45 - ARDUILD_MOSI_MIKROBUS_MOSI Low None Disabled CMOS None "AGT3: AGTOA3; BUS_ASYNCH0: A19; CAN0: CTX0; CTSU0: TS18; ETHERC_MII0: ET0_COL; GPT5: GTIOC5A; ICU0: IRQ02; SCI2: CTSRTS2; SCI9: SDA9; SCI9: TXD9; SDHI0: SD0DAT5; SPI0: MOSIA" - IO - - 
+      P204 44 - ARDUILD_CLK_MIKROBUS_CLK Low - Disabled CMOS None "AGT1: AGTIO1; BUS_ASYNCH0: A18; CAC0: CACREF; CTSU0: TS00; ETHERC_MII0: ET0_RX_DV; GPT_OPS0: GTIW; GPT4: GTIOC4B; SCI4: SCK4; SCI9: SCK9; SDHI0: SD0DAT4; SPI0: RSPCKA; SSI0: SSIBCK0; USB_FS0: USB_OVRCURB" - IO - - 
       P205 43 - ARDUILD_SS_MIKROBUS_SS Low None Disabled CMOS None "AGT1: AGTO1; BUS_ASYNCH0: A16; CGC0: CLKOUT; CTSU0: TS01; ETHERC_MII0: ET0_WOL; ETHERC_RMII0: ET0_WOL; GPT_OPS0: GTIV; GPT4: GTIOC4A; ICU0: IRQ01; IIC1: SCL1; SCI4: SDA4; SCI4: TXD4; SCI9: CTSRTS9; SDHI0: SD0DAT3; SPI0: SSLA0; SSI0: SSILRCK0; USB_FS0: USB_OVRCURA" - IO - - 
       P206 42 - - - - Disabled - - "BUS_ASYNCH0: WAIT; CTSU0: TS02; ETHERC_MII0: ET0_LINKSTA; ETHERC_RMII0: ET0_LINKSTA; GPT_OPS0: GTIU; ICU0: IRQ00; IIC1: SDA1; SCI4: RXD4; SCI4: SCL4; SCI9: CTS9; SDHI0: SD0DAT2; SPI0: SSLA1; SSI0: SSIDATA0; USB_FS0: USB_VBUSEN" - None - - 
       P207 41 - - - - Disabled - - "BUS_ASYNCH0: A17; CTSU0: TSCAP; QSPI0: QSSL; SCI4: SDA4; SCI4: TXD4; SPI0: SSLA2" - None - - 
@@ -414,6 +414,11 @@ FSP Configuration
   Module "QSPI (r_qspi)"
     Parameter Checking: Default (BSP)
     Support Multiple Line Program in Extended SPI Mode: Disabled
+    
+  Module "SPI (r_spi)"
+    Parameter Checking: Default (BSP)
+    Enable Support for using a transfer API: Enabled
+    Enable Transmitting from RXI Interrupt: Disabled
     
   FreeRTOS
     General: Custom FreeRTOSConfig.h: User_FreeRTOSConfig.h
@@ -648,6 +653,31 @@ FSP Configuration
       Extra Features: Interrupt Skipping (Channels with GTITC only): Skip ADC Events: None
       Extra Features: Output Disable: GTIOCA Disable Setting: Disable Prohibited
       Extra Features: Output Disable: GTIOCB Disable Setting: Disable Prohibited
+      
+    Instance "g_spi0 SPI (r_spi)"
+      Name: g_spi0
+      Channel: 0
+      Receive Interrupt Priority: Priority 12
+      Transmit Buffer Empty Interrupt Priority: Priority 12
+      Transfer Complete Interrupt Priority: Priority 12
+      Error Interrupt Priority: Priority 12
+      Operating Mode: Master
+      Clock Phase: Data sampling on odd edge, data variation on even edge
+      Clock Polarity: Low when idle
+      Mode Fault Error: Disable
+      Bit Order: MSB First
+      Callback: spi_callback
+      SPI Mode: Clock Synchronous Operation
+      Full or Transmit Only Mode: Full Duplex
+      Slave Select Polarity: Active Low
+      Select SSL(Slave Select): SSL0
+      MOSI Idle State: MOSI Idle Value Fixing Disable
+      Parity Mode: Disabled
+      Byte Swapping: Disable
+      Bitrate: 1000000
+      Clock Delay: 1 Clock
+      SSL Negation Delay: 1 Clock
+      Next Access Delay: 1 Clock
       
   Object "_SemaphoreVsync Binary Semaphore"
     Symbol: _SemaphoreVsync

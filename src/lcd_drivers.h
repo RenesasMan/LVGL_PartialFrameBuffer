@@ -9,6 +9,14 @@
 
 #include "ecbiu_drivers.h"
 
+//reset is P303
+//DC is P611
+//BL is P304
+
+#define LCD_SPI_RES (BSP_IO_PORT_03_PIN_03)
+#define LCD_SPI_CMD (BSP_IO_PORT_06_PIN_11)
+#define LCD_SPI_BL (BSP_IO_PORT_03_PIN_04)
+
 #define LCD_CMD (*( volatile uint8_t *) 0x80000000)
 #define LCD_DATA (*( volatile uint16_t *) 0x80000004)
 
@@ -57,5 +65,11 @@
 void LCD_Init_ST7789Vi(void);
 void LCD_Fill(uint16_t pixel_color);
 void LCD_Display_On(void);
+
+void LCD_Init_ST7789Vi_spi(void);
+void LCD_Fill_spi(uint16_t pixel_color);
+void LCD_Display_On_spi(void);
+fsp_err_t command_spi(uint8_t * lcd_cmd, uint16_t data_length );
+fsp_err_t data_spi(uint8_t * lcd_data, uint16_t data_length );
 
 #endif /* LCD_DRIVERS_H_ */

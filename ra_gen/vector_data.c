@@ -8,6 +8,10 @@
             [1] = r_icu_isr, /* ICU IRQ10 (External pin interrupt 10) */
             [2] = r_icu_isr, /* ICU IRQ11 (External pin interrupt 11) */
             [3] = gpt_counter_overflow_isr, /* GPT1 COUNTER OVERFLOW (Overflow) */
+            [4] = spi_rxi_isr, /* SPI0 RXI (Receive buffer full) */
+            [5] = spi_txi_isr, /* SPI0 TXI (Transmit buffer empty) */
+            [6] = spi_tei_isr, /* SPI0 TEI (Transmission complete event) */
+            [7] = spi_eri_isr, /* SPI0 ERI (Error) */
         };
         #if BSP_FEATURE_ICU_HAS_IELSR
         const bsp_interrupt_event_t g_interrupt_event_link_select[BSP_ICU_VECTOR_MAX_ENTRIES] =
@@ -16,6 +20,10 @@
             [1] = BSP_PRV_VECT_ENUM(EVENT_ICU_IRQ10,GROUP1), /* ICU IRQ10 (External pin interrupt 10) */
             [2] = BSP_PRV_VECT_ENUM(EVENT_ICU_IRQ11,GROUP2), /* ICU IRQ11 (External pin interrupt 11) */
             [3] = BSP_PRV_VECT_ENUM(EVENT_GPT1_COUNTER_OVERFLOW,GROUP3), /* GPT1 COUNTER OVERFLOW (Overflow) */
+            [4] = BSP_PRV_VECT_ENUM(EVENT_SPI0_RXI,GROUP4), /* SPI0 RXI (Receive buffer full) */
+            [5] = BSP_PRV_VECT_ENUM(EVENT_SPI0_TXI,GROUP5), /* SPI0 TXI (Transmit buffer empty) */
+            [6] = BSP_PRV_VECT_ENUM(EVENT_SPI0_TEI,GROUP6), /* SPI0 TEI (Transmission complete event) */
+            [7] = BSP_PRV_VECT_ENUM(EVENT_SPI0_ERI,GROUP7), /* SPI0 ERI (Error) */
         };
         #endif
         #endif

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<raConfiguration version="11">
+<raConfiguration version="12">
   <generalSettings>
     <option key="#Board#" value="board.ra6m4ek"/>
     <option key="CPU" value="RA6M4"/>
@@ -203,6 +203,10 @@
       <description>Quad Serial Peripheral Interface Flash</description>
       <originalPack>Renesas.RA.5.6.0.pack</originalPack>
     </component>
+    <component apiversion="" class="HAL Drivers" condition="" group="all" subgroup="r_spi" variant="" vendor="Renesas" version="5.6.0">
+      <description>Serial Peripheral Interface</description>
+      <originalPack>Renesas.RA.5.6.0.pack</originalPack>
+    </component>
   </raComponentSelection>
   <raElcConfiguration/>
   <raIcuConfiguration/>
@@ -364,6 +368,31 @@
       <property id="module.driver.timer.gtioca_disable_setting" value="module.driver.timer.gtioca_disable_setting.gtioc_disable_prohibited"/>
       <property id="module.driver.timer.gtiocb_disable_setting" value="module.driver.timer.gtiocb_disable_setting.gtioc_disable_prohibited"/>
     </module>
+    <module id="module.driver.spi_on_spi.1175085848">
+      <property id="module.driver.spi.name" value="g_spi0"/>
+      <property id="module.driver.spi.channel" value="0"/>
+      <property id="module.driver.spi.rxi_ipl" value="board.icu.common.irq.priority12"/>
+      <property id="module.driver.spi.txi_ipl" value="board.icu.common.irq.priority12"/>
+      <property id="module.driver.spi.tei_ipl" value="board.icu.common.irq.priority12"/>
+      <property id="module.driver.spi.eri_ipl" value="board.icu.common.irq.priority12"/>
+      <property id="module.driver.spi.operating_mode" value="module.driver.spi.operating_mode.mode_master"/>
+      <property id="module.driver.spi.clk_phase" value="module.driver.spi.clk_phase.clk_phase_edge_odd"/>
+      <property id="module.driver.spi.clk_polarity" value="module.driver.spi.clk_polarity.clk_polarity_low"/>
+      <property id="module.driver.spi.mode_fault" value="module.driver.spi.mode_fault.mode_fault_error_disable"/>
+      <property id="module.driver.spi.bit_order" value="module.driver.spi.bit_order.bit_order_msb_first"/>
+      <property id="module.driver.spi.p_callback" value="spi_callback"/>
+      <property id="module.driver.spi.spi_clksyn" value="module.driver.spi.spi_clksyn.spi_clksyn"/>
+      <property id="module.driver.spi.spi_comm" value="module.driver.spi.spi_comm.full_duplex"/>
+      <property id="module.driver.spi.ssl_polarity" value="module.driver.spi.ssl_polarity.low"/>
+      <property id="module.driver.spi.ssl_select" value="module.driver.spi.ssl_select.zero"/>
+      <property id="module.driver.spi.mosi_idle_value_fixing" value="module.driver.spi.mosi_idle_value_fixing.disable"/>
+      <property id="module.driver.spi.parity" value="module.driver.spi.parity_mode.disable"/>
+      <property id="module.driver.spi.byte_swap" value="module.driver.spi.byte_swap.disable"/>
+      <property id="module.driver.spi.bitrate" value="1000000"/>
+      <property id="module.driver.spi.spck_delay" value="module.driver.spi.spck_delay.one"/>
+      <property id="module.driver.spi.ssl_negation_delay" value="module.driver.spi.ssl_negation_delay.one"/>
+      <property id="module.driver.spi.next_access_delay" value="module.driver.spi.next_access_delay.one"/>
+    </module>
     <object id="rtos.awsfreertos.object.binary_semaphore.126728363">
       <property id="rtos.awsfreertos.object.binary_semaphore.symbol" value="_SemaphoreVsync"/>
       <property id="rtos.awsfreertos.object.binary_semaphore.allocation" value="rtos.awsfreertos.object.binary_semaphore.allocation.static"/>
@@ -386,11 +415,17 @@
       <stack module="module.driver.external_irq_on_icu.1248076382"/>
       <stack module="module.driver.qspi_on_qspi.1358665038"/>
       <stack module="module.driver.timer_on_gpt.156553719"/>
+      <stack module="module.driver.spi_on_spi.1175085848"/>
     </context>
     <config id="config.driver.gpt">
       <property id="config.driver.gpt.param_checking_enable" value="config.driver.gpt.param_checking_enable.bsp"/>
       <property id="config.driver.gpt.output_support_enable" value="config.driver.gpt.output_support_enable.enabled"/>
       <property id="config.driver.gpt.write_protect_enable" value="config.driver.gpt.write_protect_enable.disabled"/>
+    </config>
+    <config id="config.driver.spi">
+      <property id="config.driver.spi.param_checking_enable" value="config.driver.spi.param_checking_enable.bsp"/>
+      <property id="config.driver.spi.dtc_enable" value="config.driver.spi.dtc_enable.enabled"/>
+      <property id="config.driver.spi.rxi_transmit" value="config.driver.spi.rxi_transmit.disabled"/>
     </config>
     <config id="config.driver.ioport">
       <property id="config.driver.ioport.checking" value="config.driver.ioport.checking.system"/>
@@ -581,7 +616,6 @@
       <configSetting altId="bus.asynch0.mode.custom" configurationId="bus.asynch0.mode"/>
       <configSetting altId="bus.asynch0.rd.p600" configurationId="bus.asynch0.rd"/>
       <configSetting altId="bus.asynch0.wr.p601" configurationId="bus.asynch0.wr"/>
-      <configSetting altId="cgc0.clkout.p205" configurationId="cgc0.clkout"/>
       <configSetting altId="cgc0.extal.p212" configurationId="cgc0.extal"/>
       <configSetting altId="cgc0.mode.mainsub" configurationId="cgc0.mode"/>
       <configSetting altId="cgc0.xtal.p213" configurationId="cgc0.xtal"/>
@@ -682,7 +716,14 @@
       <configSetting altId="p114.gpio_mode.gpio_mode_peripheral" configurationId="p114.gpio_mode"/>
       <configSetting altId="p115.output.low" configurationId="p115"/>
       <configSetting altId="p115.gpio_mode.gpio_mode_out.low" configurationId="p115.gpio_mode"/>
-      <configSetting altId="p205.cgc0.clkout" configurationId="p205"/>
+      <configSetting altId="p202.spi0.miso" configurationId="p202"/>
+      <configSetting altId="p202.gpio_mode.gpio_mode_peripheral" configurationId="p202.gpio_mode"/>
+      <configSetting altId="p203.spi0.mosi" configurationId="p203"/>
+      <configSetting altId="p203.gpio_mode.gpio_mode_peripheral" configurationId="p203.gpio_mode"/>
+      <configSetting altId="p204.spi0.rspck" configurationId="p204"/>
+      <configSetting altId="p204.gpio_mode.gpio_mode_peripheral" configurationId="p204.gpio_mode"/>
+      <configSetting altId="p205.spi0.ssl0" configurationId="p205"/>
+      <configSetting altId="p205.gpio_speed.gpio_speed_high" configurationId="p205.gpio_drivecapacity"/>
       <configSetting altId="p205.gpio_mode.gpio_mode_peripheral" configurationId="p205.gpio_mode"/>
       <configSetting altId="p212.cgc0.extal" configurationId="p212"/>
       <configSetting altId="p212.gpio_mode.gpio_mode_peripheral" configurationId="p212.gpio_mode"/>
@@ -828,7 +869,12 @@
       <configSetting altId="qspi0.qssl.p306" configurationId="qspi0.qssl"/>
       <configSetting altId="sci6.pairing.b" configurationId="sci6.pairing"/>
       <configSetting altId="sci7.pairing.c" configurationId="sci7.pairing"/>
+      <configSetting altId="spi0.miso.p202" configurationId="spi0.miso"/>
+      <configSetting altId="spi0.mode.enabled.free" configurationId="spi0.mode"/>
+      <configSetting altId="spi0.mosi.p203" configurationId="spi0.mosi"/>
       <configSetting altId="spi0.pairing.free" configurationId="spi0.pairing"/>
+      <configSetting altId="spi0.rspck.p204" configurationId="spi0.rspck"/>
+      <configSetting altId="spi0.ssl0.p205" configurationId="spi0.ssl0"/>
       <configSetting altId="spi1.pairing.b" configurationId="spi1.pairing"/>
       <configSetting altId="usbfs0.mode.custom" configurationId="usbfs0.mode"/>
       <configSetting altId="usbfs0.ovrcura.p501" configurationId="usbfs0.ovrcura"/>

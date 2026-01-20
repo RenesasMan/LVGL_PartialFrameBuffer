@@ -23,6 +23,8 @@ static uint32_t non_idle_time_sum;
 static uint32_t task_switch_timestamp;
 static bool idle_task_running;
 
+bool g_transfer_complete;
+
 #if ( (1 == LV_USE_DEMO_WIDGETS_MODIFIED || 1 == LV_USE_PARTIAL_FRAMEBUFFER_BENCHMARK) && 0 == LV_USE_DEMO_BENCHMARK)
 extern lv_obj_t * tv;
 extern lv_obj_t * t1;
@@ -138,10 +140,25 @@ void LVGL_thread_entry(void *pvParameters)
     /* Setup the external bus transfers. */
     ecbiu_lcd_config();
 
-    /* Initialize LCD, fill screen with color bars, and turn on the display. */
+
+
     LCD_Init_ST7789Vi();
 //    fb_color_bars();
     LCD_Display_On();
+
+
+    //New code to initialize
+    /* Initialize LCD, fill screen with color bars, and turn on the display. */
+    err = R_SPI_Open(&g_spi0_ctrl, &g_spi0_cfg);
+    if (FSP_SUCCESS != err)
+    {
+        __BKPT();
+    }
+    //set BL high
+    R_IOPORT_PinWrite(&g_ioport_ctrl, LCD_SPI_BL, BSP_IO_LEVEL_HIGH );
+
+    LCD_Init_ST7789Vi_spi();
+
 
     lv_init();
 
@@ -237,11 +254,15 @@ void LVGL_thread_entry(void *pvParameters)
 
     lv_timer_handler();
 
-    uint8_t old_tab;
+    uint8_t old_tab=0;
+
+    uint8_t spi_test_data[10] = {0,1,2,3,4,5,6,7,8,9};
 
     /* TODO: add your own code here */
     while (1)
     {
+//        err = R_SPI_Write(&g_spi0_ctrl, &spi_test_data[5], 1,  SPI_BIT_WIDTH_8_BITS  );
+
         lv_timer_handler();
         vTaskDelay (1);
 
@@ -568,4 +589,12 @@ fsp_err_t qspi_init(void)
         }
 
     return err;
+}
+
+void spi_callback (spi_callback_args_t * p_args)
+{
+    if (SPI_EVENT_TRANSFER_COMPLETE == p_args->event)
+    {
+        g_transfer_complete = true;
+    }
 }

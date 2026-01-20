@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<raConfiguration version="11">
+<raConfiguration version="12">
   <generalSettings>
     <option key="#Board#" value="board.ra6m4ek"/>
     <option key="CPU" value="RA6M4"/>
@@ -84,7 +84,6 @@
       <configSetting altId="bus.asynch0.d15.p801" configurationId="bus.asynch0.d15" peripheral="BUS_ASYNCH0"/>
       <configSetting altId="bus.asynch0.rd.p600" configurationId="bus.asynch0.rd" peripheral="BUS_ASYNCH0"/>
       <configSetting altId="bus.asynch0.wr.p601" configurationId="bus.asynch0.wr" peripheral="BUS_ASYNCH0"/>
-      <configSetting altId="cgc0.clkout.p205" configurationId="cgc0.clkout" isUsedByDriver="true" peripheral="CGC0"/>
       <configSetting altId="cgc0.extal.p212" configurationId="cgc0.extal" isUsedByDriver="true" peripheral="CGC0"/>
       <configSetting altId="cgc0.xtal.p213" configurationId="cgc0.xtal" isUsedByDriver="true" peripheral="CGC0"/>
       <configSetting altId="debug0.tck.p300" configurationId="debug0.tck" isUsedByDriver="true" peripheral="DEBUG0"/>
@@ -136,6 +135,10 @@
       <configSetting altId="qspi0.qio3.p310" configurationId="qspi0.qio3" isUsedByDriver="true" peripheral="QSPI0"/>
       <configSetting altId="qspi0.qspclk.p305" configurationId="qspi0.qspclk" isUsedByDriver="true" peripheral="QSPI0"/>
       <configSetting altId="qspi0.qssl.p306" configurationId="qspi0.qssl" isUsedByDriver="true" peripheral="QSPI0"/>
+      <configSetting altId="spi0.miso.p202" configurationId="spi0.miso" isUsedByDriver="true" peripheral="SPI0"/>
+      <configSetting altId="spi0.mosi.p203" configurationId="spi0.mosi" isUsedByDriver="true" peripheral="SPI0"/>
+      <configSetting altId="spi0.rspck.p204" configurationId="spi0.rspck" isUsedByDriver="true" peripheral="SPI0"/>
+      <configSetting altId="spi0.ssl0.p205" configurationId="spi0.ssl0" isUsedByDriver="true" peripheral="SPI0"/>
       <configSetting altId="usbfs0.ovrcura.p501" configurationId="usbfs0.ovrcura" peripheral="USB_FS0"/>
       <configSetting altId="usbfs0.vbus.p407" configurationId="usbfs0.vbus" peripheral="USB_FS0"/>
       <configSetting altId="usbfs0.vbusen.p500" configurationId="usbfs0.vbusen" peripheral="USB_FS0"/>
